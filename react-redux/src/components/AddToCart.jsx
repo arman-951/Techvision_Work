@@ -7,7 +7,7 @@ const AddToCart = () => {
   // console.log(selector.value)
 
   const cartCount = useSelector((state) => state.carts.items);
-  console.log(cartCount);
+  // console.log(cartCount);
   return (
     <>
       <div className="cart-container">

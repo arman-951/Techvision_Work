@@ -13,14 +13,21 @@ const CartList = () => {
   // store quantity per item using an object { [id]: count }
   //   const [quantities, setQuantities] = useState({});
   const carts = useSelector((state) => state.carts.items);
-  console.log(carts);
+  const {loggedUser}=useSelector((state)=>state.user)
+  // console.log(carts);
   const dispatch = useDispatch();
   const navigate=useNavigate()
 
-  const handleOrder=()=>{
+  const handleOrder = () => {
+  if (!loggedUser) {
+    alert("You are not logged in. Please login first!");
+    navigate("/login", { state: { from: "/carts" } }); // ✅ send redirect info
+  } else {
     dispatch(orderPlaced());
-    navigate('/')
+    navigate("/");
   }
+};
+
 
   // calculate total based on item price * quantity
   const total = carts.reduce(
@@ -58,14 +65,16 @@ const CartList = () => {
                 <div className="cart-list-item-actions">
                   <button
                     onClick={() => dispatch(decrementQuantity(item.id))}
-                    className="quantity-btn"
+                    disabled={item.quantity===1}
+                    className={`quantity-btn ${item.quantity === 1 ? '!bg-gray-300 !cursor-not-allowed' : '!bg-blue-500 !text-white'}`}
                   >
                     −
                   </button>
                   <span className="quantity">{item.quantity}</span>
                   <button
                     onClick={() => dispatch(incrementQuantity(item.id))}
-                    className="quantity-btn"
+                    disabled={item.quantity===item.stock}
+                    className={`quantity-btn  ${item.quantity===item.stock ? '!bg-gray-300 !cursor-not-allowed' : '!bg-blue-500 !text-white'}`}
                   >
                     +
                   </button>

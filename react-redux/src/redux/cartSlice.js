@@ -46,7 +46,7 @@ export const cartSlice = createSlice({
         },
         orderPlaced: (state) => {
             state.status = alert('Order Placed');
-            localStorage.clear()
+            localStorage.removeItem('cart')
             state.items = [];
         },
         clearCart: (state) => {

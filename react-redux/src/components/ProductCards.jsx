@@ -8,14 +8,14 @@ const ProductCards = () => {
 
   const { product,loading, error } = useSelector((state) => state.products);
   const cartSelector=useSelector((state)=>state.carts.items)
-  console.log(cartSelector.length)
+  // console.log(cartSelector.length)
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
   if (loading) {
-    return <p className="text-center mt-10 text-lg font-semibold">Loading...</p>;
+    return <p className="min-h-screen flex justify-center items-center mt-10 text-lg font-semibold">Loading...</p>;
   }
 
   if (error) {
@@ -40,6 +40,7 @@ const ProductCards = () => {
           <div className="product-info">
             <h3 className="product-title">{item.title}</h3>
             <p className="product-category">{item.brand}</p>
+            <p className={`text-sm font-semibold ${item.stock>10?'text-green-600':'text-red-600'}`}>{item.stock>10?"In Stock":"Out of Stock"}</p>
 
             <div className="price">
               <span className="current-price">${item.price}</span>
