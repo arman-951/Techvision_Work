@@ -49,7 +49,7 @@ const ProductCards = () => {
             {
               cartSelector.find((cartItem)=>cartItem.id===item.id)
               ?
-              <button onClick={()=>dispatch(removeItemFromCart(item))} className="add-to-cart !bg-red-600 hover:!bg-red-700">Remove From Cart</button>
+              <button onClick={()=>dispatch(removeItemFromCart(item.id))} className="add-to-cart !bg-red-600 hover:!bg-red-700">Remove From Cart</button>
               :
               <button onClick={()=>dispatch(addItemToCart(item))} className="add-to-cart">Add to Cart</button>
             }
